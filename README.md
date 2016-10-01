@@ -16,9 +16,11 @@ npm install grunt-patcher --save-dev
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
 ```js
-grunt.loadNpmTasks('grunt-patch');
+grunt.loadNpmTasks('grunt-patcher');
 ```
-### Breaking changes to `runt-patch'
+Note: This will be registered as `patch`.
+
+### Breaking changes to `grunt-patch'
 * Option for patch to be a string removed. Patch *must* be a patch-file's name now.
 
 ## The "patch" task
