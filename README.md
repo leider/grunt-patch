@@ -1,3 +1,5 @@
+# grunt-patch [![Build Status](https://travis-ci.org/leider/grunt-patch.svg?branch=master)](https://travis-ci.org/leider/grunt-patch.svg?branch=master)
+
 > Grunt Patch is a grunt plugin which can be used to patch files using grunt.
 
 ## Getting Started
