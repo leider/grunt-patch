@@ -1,14 +1,14 @@
-# grunt-patch [![Build Status](https://travis-ci.org/nettantra/grunt-patch.svg?branch=master)](https://travis-ci.org/nettantra/grunt-patch)
-
 > Grunt Patch is a grunt plugin which can be used to patch files using grunt.
 
 ## Getting Started
-This plugin requires Grunt `~0.4.5`
+This is a fork based on https://github.com/nettantra/grunt-patch. Main reason is to have current dependencies.
+
+This plugin requires Grunt `^1` and node `>=6`
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
-npm install grunt-patch --save-dev
+npm install grunt-patcher --save-dev
 ```
 
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
@@ -16,6 +16,8 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 ```js
 grunt.loadNpmTasks('grunt-patch');
 ```
+### Breaking changes to `runt-patch'
+* Option for patch to be a string removed. Patch *must* be a patch-file's name now.
 
 ## The "patch" task
 
@@ -43,7 +45,7 @@ grunt.initConfig({
 Type: `String`
 Default value: `false`
 
-This is a string value which can either be the path of a patch file or the patch string itself. This is a required option.
+This is a string value which must be the path of a patch file. This is a required option.
 
 ### Usage Examples
 
@@ -63,44 +65,6 @@ grunt.initConfig({
 });
 ```
 
-#### Custom Options
-In this example, the custom options are used to patch an input file named `input.custom` with the string mentioned in `patch` to output a patched file named `output.custom.patched`.
-
-```js
-grunt.initConfig({
-  patch: {
-    default_options: {
-      options: {
-        patch: 'test/fixtures/default.patch'
-      },
-      files: {
-        'tmp/output.default.patched': 'test/fixtures/input.default'
-      }
-    },
-    custom_options: {
-      options: {
-        patch: "Index: input.custom\n" + 
-               "===================================================================\n" + 
-               "--- input.custom\n" + 
-               "+++ input.custom\n" + 
-               "@@ -1,7 +1,7 @@\n" + 
-               " Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore.\n" + 
-               " \n" + 
-               " Veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur.\n" + 
-               " \n" + 
-               "+Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?\n" + 
-               "-Adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?\n" + 
-               " \n" + 
-               " Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\n"
-      },
-      files: {
-        'tmp/output.custom.patched': 'test/fixtures/input.custom'
-      }
-    }
-  }
-});
-```
-
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
@@ -111,7 +75,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 
 ## Release History
-
+ * 2016-10-01   v1.0.0 rename to grunt-patcher in package.json
  * 2014-07-31   v0.1.7  Updating verbose.
  * 2014-07-31	v0.1.6	Added exceptions to fail patch.
  * 2014-07-31	v0.1.5	Updates to README.
@@ -119,6 +83,8 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
  * 2014-07-31	v0.1.1	Updated the README file with Release History.
  * 2014-07-31	v0.1.0	First release of grunt-patch.
 
-Copyright (c) [NetTantra Technologies](http://www.nettantra.com/)
+no copyright by myself.
+
+original Copyright (c) [NetTantra Technologies](http://www.nettantra.com/)
 
 ---

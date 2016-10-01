@@ -1,62 +1,43 @@
 /*
- * grunt-patch
- * https://github.com/nettantra/grunt-patch
+ * grunt-patcher
+ * https://github.com/leider/grunt-patch
  *
- * Copyright (c) 2014 NetTantra Technologies
  * Licensed under the MIT license.
- * https://github.com/nettantra/grunt-patch/blob/master/LICENSE-MIT
  */
 
-module.exports = function(grunt) {
+module.exports = grunt => {
   'use strict';
 
-  var jsdiff = require('diff');
-  var fs = require('fs');
-
-  grunt.registerMultiTask('patch', 'Grunt Plugin to patch files.', function() {
-    var options = this.options({
+  grunt.registerMultiTask('patch', 'Grunt Plugin to patch files.', function () {
+    const options = this.options({
       patch: false
     });
-    
-    var diffString = options.patch;
-    
+
     if (!options.patch) {
       grunt.log.error('The option `patch` must either be a patch string or path to a patch file.');
       return false;
     }
-    
-    if (grunt.file.exists(options.patch)) {
-      var patchFileStats = fs.statSync(options.patch);
-      if (patchFileStats.isDirectory()) {
-        grunt.log.error('The location `'+options.patch+'` is not a valid file.');
-        return false;
-      }
-      diffString = grunt.file.read(options.patch);
+
+    if (grunt.file.exists(options.patch) && grunt.file.isDir(options.patch)) {
+      grunt.log.error('The location `' + options.patch + '` is not a valid file.');
+      return false;
     }
-    
-    this.files.forEach(function(f) {
-      var srcCount = 0;
-      var src = f.src.filter(function(filepath) {
-        srcCount++;
-        if (srcCount > 1) {
-          grunt.log.warn('Only the first file in the source is accepted as input. Ignoring "'+filepath+'".');
-          return false;
-        } else {
-          return true;
-        }
-      }).map(function(filepath) {
-        // Read file source.
-        var fileContents = grunt.file.read(filepath);
-        return jsdiff.applyPatch(fileContents, diffString);
-      });
+
+    if (this.files.length > 1) {
+      grunt.log.warn('You may only patch one file per task.');
+      return false;
+    }
+
+    this.files.forEach(f => {
+      const result = require('diff').applyPatch(grunt.file.read(f.src), grunt.file.read(options.patch));
       
-      if (!src || !src[0]) {
+      if (!result) {
         grunt.log.warn('Patch failed. Please check your patch and its corresponding version.');
         return false;
       }
       // Write the destination file.
-      grunt.file.write(f.dest, src);
-    
+      grunt.file.write(f.dest, result);
+
       // Print a success message.
       grunt.log.writeln('File "' + f.src + '" was patched successfully. Output file: "' + f.dest + '".');
     });
