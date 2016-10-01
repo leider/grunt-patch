@@ -1,7 +1,7 @@
 {
   "name": "grunt-patcher",
   "description": "Grunt Plugin to patch files.",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "author": {
     "name": "leider"
   },
@@ -14,7 +14,7 @@
   },
   "license": "(MIT OR Apache-2.0)",
   "engines": {
-    "node": ">=6"
+    "node": ">=4"
   },
   "scripts": {
     "test": "grunt test"

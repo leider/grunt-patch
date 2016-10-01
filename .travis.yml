@@ -1,9 +1,9 @@
 language: node_js
+
+# Use faster Docker architecture on Travis. (http://blog.travis-ci.com/2014-12-17-faster-builds-with-container-based-infrastructure/)
+sudo: false
+
 node_js:
   - '4'
   - '5'
   - '6'
-before_install:
-  - npm update npm -g
-before_script:
-  - npm install -g grunt-cli
